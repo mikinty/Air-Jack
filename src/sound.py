@@ -32,6 +32,8 @@ pygame.mixer.set_num_channels(NUM_CHANNELS)  # default is 8
 # Set up multiple event playing channels
 currChannel = 0
 
+bool isGuitar = True
+
 def playSound(sound):
   '''
   A queueing system to play multiple sounds
@@ -46,26 +48,47 @@ for s in GUITAR_NOTES:
   sounds.append(pygame.mixer.Sound(GUITAR_SOUNDS_DIR + s))
 
 while True: # Run forever
-    s = int.from_bytes(ser.read(size=1), byteorder="big")
-    if(s != ord('s')):
-	    print("Something is wrong")
-	    continue
-    a = int.from_bytes(ser.read(size=1), byteorder="big")
-    b = int.from_bytes(ser.read(size=1), byteorder="big")
-    c = int.from_bytes(ser.read(size=1), byteorder="big")
+    if (isGuitar):
+       s = int.from_bytes(ser.read(size=1), byteorder="big")
+       if(s != ord('s')):
+               print("Something is wrong")
+               continue
+       a = int.from_bytes(ser.read(size=1), byteorder="big")
+       b = int.from_bytes(ser.read(size=1), byteorder="big")
+       c = int.from_bytes(ser.read(size=1), byteorder="big")
 
-    if (a!=0):
-        playSound(sounds[a-1])
-    if (b!=0):
-        playSound(sounds[b+8-1])
-    if (c!=0):
-        playSound(sounds[b+16-1])
-    #play sound based on a, b, c
-    print(a, b, c)
-    e = int.from_bytes(ser.read(size=1), byteorder="big")
-    if(e != ord('e')):
-    	  print("Something is wrong")
-
+       if (a!=0):
+           playSound(sounds[a-1])
+       if (b!=0):
+           playSound(sounds[b+8-2])
+       if (c!=0):
+           playSound(sounds[c+16-3])
+       #play sound based on a, b, c
+       print(a, b, c)
+       e = int.from_bytes(ser.read(size=1), byteorder="big")
+       if(e != ord('e')):
+             print("Something is wrong")
+    else:
+       s = int.from_bytes(ser.read(size=1), byteorder="big")
+       if(s != ord('s')):
+               print("Something is wrong")
+               continue
+       a = int.from_bytes(ser.read(size=1), byteorder="big")
+       b = int.from_bytes(ser.read(size=1), byteorder="big")
+       c = int.from_bytes(ser.read(size=1), byteorder="big")
+       a = (a+1)/2 # 0->0; 1,2 -> 1; 3,4->2, etc.
+       b = (b+1)/2
+       c = (c+1)/2
+   
+       playSound(sounds[a])
+       playSound(sounds[b+4])
+       playSound(sounds[c+9])
+       #play sound based on a, b, c
+       print(a, b, c)
+       e = int.from_bytes(ser.read(size=1), byteorder="big")
+       if(e != ord('e')):
+             print("Something is wrong")
+     
 
     """
     sleep(0.1)

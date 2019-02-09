@@ -20,20 +20,18 @@ GUITAR_NOTES = [
    'C3.ogg', #5
    'Cs3.ogg', #6
    'D3.ogg', #7
-   'D3.ogg', #8
-   'Ds3.ogg', #9
-   'E3.ogg', #10
-   'F3.ogg', #11
-   'Fs3.ogg', #12
-   'G3.ogg', #13
-   'Ab3.ogg', #14
-   'A3.ogg', #15
-   'A3.ogg', #16
-    'Bb3.ogg', #17
-    'B3.ogg', #18
-    'C4.ogg', #19
-    'Cs4.ogg', #20
-    'D4.ogg', #21
-    'Eb4.ogg', #22
-    'E4.ogg' #23
+   'Ds3.ogg', #8
+   'E3.ogg', #9
+   'F3.ogg', #10
+   'Fs3.ogg', #11
+   'G3.ogg', #12
+   'Ab3.ogg', #13
+   'A3.ogg', #14
+    'Bb3.ogg', #15
+    'B3.ogg', #16
+    'C4.ogg', #17
+    'Cs4.ogg', #18
+    'D4.ogg', #19
+    'Eb4.ogg', #20
+    'E4.ogg' #21
 ]
