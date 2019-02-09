@@ -4,7 +4,7 @@ Main file for controlling button logic and registering sounds.
 import pygame
 from time import sleep
 from CONST import *
-"""
+
 import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
 
 # GPIO setup
@@ -14,7 +14,7 @@ GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
 for pin in GPIO_INPUT_PINS:
   # Pull down resistor for buttons
   GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-"""
+
 # Pygame sound setup
 pygame.mixer.init() #turn all of pygame on.
 pygame.mixer.set_num_channels(NUM_CHANNELS)  # default is 8
@@ -39,9 +39,10 @@ for s in GUITAR_NOTES:
 while True: # Run forever
   sleep(0.1)
   for i in range(len(sounds)):
-      playSound(sounds[i]) 
+      print ("played sound: ", i)
+      playSound(sounds[i])
       sleep(1.0)
-  """   
+  """
   for i in range(len(GPIO_INPUT_PINS)):
     inputPin = GPIO_INPUT_PINS[i]
 

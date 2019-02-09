@@ -9,9 +9,11 @@ GPIO_INPUT_PINS = [
   10
 ]
 
-GUITAR_SOUNDS_DIR = 'guitar-electric/audacityTracks'
+GUITAR_SOUNDS_DIR = 'guitar-electric/audacityTracks/'
 
 GUITAR_NOTES = [
+  'G2.ogg',
+  'Gs2.ogg',
   'A2.ogg',
   'Bb2.ogg',
    'B2.ogg',
@@ -24,5 +26,12 @@ GUITAR_NOTES = [
    'Fs3.ogg',
    'G3.ogg',
    'Ab3.ogg',
-   'A3.ogg'   
+   'A3.ogg',
+    'Bb3.ogg',
+    'B3.ogg',
+    'C4.ogg',
+    'Cs4.ogg',
+    'D4.ogg',
+    'Eb4.ogg',
+    'E4.ogg'
 ]
