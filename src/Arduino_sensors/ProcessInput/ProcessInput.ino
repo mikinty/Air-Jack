@@ -7,16 +7,31 @@ int cutoffs[3][8] = {{55, 109, 148, 178, 233, 335, 545, 1023},
 int trigPin = 11;
 int echoPin = 12;
 long duration, cm;
+int buttonPin = A3;
+int tempoPin = A4;
+
 
 void setup() {
   Serial.begin(9600);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  
+  pinMode(buttonPin, INPUT);
+  pinMode(tempoPin, INPUT);
 } 
 
 void loop() {
   //https://randomnerdtutorials.com/complete-guide-for-ultrasonic-sensor-hc-sr04/
+  if(digitalRead(buttonPin) == LOW) {
+    Serial.write('a');
+    int voltage = analogRead(tempoPin);
+    if(voltage>500)
+      voltage = 500;
+    int v = map(voltage, 0, 500, 8, 16);
+    Serial.write(v + 48);
+    Serial.write('b');
+    Serial.println();
+    delay(100);
+  }
   digitalWrite(trigPin, LOW);
   delayMicroseconds(5);
   digitalWrite(trigPin, HIGH);
@@ -32,7 +47,6 @@ void loop() {
   int stringValues[3];
   for(int i=0;i<3;i++) {
     int voltage = analogRead(stringPins[i]);
-    //Serial.println(voltage);
     if(voltage==0) {
       stringValues[i] = 0;
       continue;
@@ -50,7 +64,5 @@ void loop() {
     Serial.write(stringValues[i]+48);
   }
   Serial.write('e');
-  //Serial.println();
-  //Serial.flush();
   delay(200);
 }
