@@ -13,8 +13,8 @@ import serial
 port = "/dev/ttyUSB0" #cu.usbserial-14410" # check if this is right
 rate = 9600
 
-ser = serial.Serial(port, rate)
-ser.flushInput()
+#ser = serial.Serial(port, rate)
+#ser.flushInput()
 
 # GPIO setup
 GPIO.setwarnings(False) # Ignore warning for now
@@ -53,12 +53,12 @@ for d in DRUM_SOUNDS:
 
 while True: # Run forever
     sleep(1)
-    pygame.mixer.music.load(DRUM_SOUNDS_DIR + DRUM_SOUNDS[0])
-    pygame.mixer.music.play(loops= -1, start = 0.0)
+    pygame.mixer.music.load(DRUM_SOUNDS_DIR + DRUM_SOUNDS[4])
+    pygame.mixer.music.play(loops = -1, start = 0.0)
     sleep (10)
     break;
 
-
+    """
     if (isGuitar):
        s = int.from_bytes(ser.read(size=1), byteorder="big")
        if(s != ord('s')):
@@ -101,7 +101,7 @@ while True: # Run forever
              print("Something is wrong")
 
 
-    """
+
     sleep(0.1)
     for i in range(len(sounds)):
         print ("played sound: ", i)
