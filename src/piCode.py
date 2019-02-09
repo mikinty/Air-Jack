@@ -11,9 +11,12 @@ while(True):
 	if(s != ord('s')):
 		print("Something is wrong")
 		continue
-	a = int.from_bytes(ser.read(size=1), byteorder="big")
-	b = int.from_bytes(ser.read(size=1), byteorder="big")
-	c = int.from_bytes(ser.read(size=1), byteorder="big")
+	# subtract 48 because we add 48 when sending
+	# this is pretty stupid but it's hard to send e.g. 0 through serial
+	# 48 because 0 + 48 == '0'
+	a = int.from_bytes(ser.read(size=1), byteorder="big") - 48
+	b = int.from_bytes(ser.read(size=1), byteorder="big") - 48
+	c = int.from_bytes(ser.read(size=1), byteorder="big") - 48
 	#play sound based on a, b, c
 	print(a, b, c)
 	e = int.from_bytes(ser.read(size=1), byteorder="big")
