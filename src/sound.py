@@ -31,8 +31,8 @@ pygame.mixer.set_num_channels(NUM_CHANNELS)  # default is 8
 
 # Set up multiple event playing channels
 currChannel = 0
+isGuitar = True
 
-bool isGuitar = True
 
 def playSound(sound):
   '''
@@ -79,7 +79,7 @@ while True: # Run forever
        a = (a+1)/2 # 0->0; 1,2 -> 1; 3,4->2, etc.
        b = (b+1)/2
        c = (c+1)/2
-   
+
        playSound(sounds[a])
        playSound(sounds[b+4])
        playSound(sounds[c+9])
@@ -88,7 +88,7 @@ while True: # Run forever
        e = int.from_bytes(ser.read(size=1), byteorder="big")
        if(e != ord('e')):
              print("Something is wrong")
-     
+
 
     """
     sleep(0.1)
