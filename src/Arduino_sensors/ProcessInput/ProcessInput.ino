@@ -7,7 +7,7 @@ int cutoffs[3][8] = {{55, 109, 148, 178, 233, 335, 545, 1023},
 int trigPin = 11;
 int echoPin = 12;
 long duration, cm;
-int buttonPin = A3;
+int buttonPin = D4;
 int tempoPin = A4;
 
 
