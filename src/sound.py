@@ -51,6 +51,7 @@ drumSounds = []
 for d in DRUM_SOUNDS:
   drumSounds.append(pygame.mixer.Sound(DRUM_SOUNDS_DIR+ d))
 
+currDrumSetting = 0 #0 = no drums; 1 = metronome; 2 = drum loop
 while True: # Run forever
     sleep(1)
     pygame.mixer.music.load(DRUM_SOUNDS_DIR + DRUM_SOUNDS[0])
@@ -58,48 +59,44 @@ while True: # Run forever
     sleep (10)
     break;
 
-
-    if (isGuitar):
-       s = int.from_bytes(ser.read(size=1), byteorder="big")
-       if(s != ord('s')):
-               print("Something is wrong")
-               continue
-       a = int.from_bytes(ser.read(size=1), byteorder="big")
-       b = int.from_bytes(ser.read(size=1), byteorder="big")
-       c = int.from_bytes(ser.read(size=1), byteorder="big")
-
-       if (a!=0):
-           playSound(sounds[a-1])
-       if (b!=0):
-           playSound(sounds[b+8-2])
-       if (c!=0):
-           playSound(sounds[c+16-3])
-       #play sound based on a, b, c
-       print(a, b, c)
-       e = int.from_bytes(ser.read(size=1), byteorder="big")
-       if(e != ord('e')):
+    s = int.from_bytes(ser.read(size=1), byteorder="big")
+    if(s != ord('s') or s != ord('a')):
              print("Something is wrong")
+             continue
+
+    if(s == ord('s')):
+      a = int.from_bytes(ser.read(size=1), byteorder="big")
+      b = int.from_bytes(ser.read(size=1), byteorder="big")
+      c = int.from_bytes(ser.read(size=1), byteorder="big")
+      print(a, b, c)
+
+      if (isGuitar):
+        if (a!=0):
+             playSound(sounds[a-1])
+        if (b!=0):
+             playSound(sounds[b+8-2])
+        if (c!=0):
+             playSound(sounds[c+16-3])
+      else:
+         playSound(sounds[(a+1)/2])
+         playSound(sounds[(b+1)/2+4])
+         playSound(sounds[(c+1)/2+9])
     else:
-       s = int.from_bytes(ser.read(size=1), byteorder="big")
-       if(s != ord('s')):
-               print("Something is wrong")
-               continue
-       a = int.from_bytes(ser.read(size=1), byteorder="big")
-       b = int.from_bytes(ser.read(size=1), byteorder="big")
-       c = int.from_bytes(ser.read(size=1), byteorder="big")
-       a = (a+1)/2 # 0->0; 1,2 -> 1; 3,4->2, etc.
-       b = (b+1)/2
-       c = (c+1)/2
+       d = int.from_bytes(ser.read(size=1), byteorder="big")
+       d = d-48
+       currDrumSetting = (currDrumSetting+1)%3
+       pygame.mixer.music.stop()
+       if (currDrumSetting == 1):
+            pygame.mixer.music.load(DRUM_SOUNDS_DIR + DRUM_SOUNDS[d-8])
+            pygame.mixer.music.play(loops = -1, start = 0.0)
+       elif (currDrumSetting==2):
+            pygame.mixer.music.load(DRUM_SOUNDS_DIR + DRUM_SOUNDS[d+1])
+            pygame.mixer.music.play(loops = -1, start = 0.0)
 
-       playSound(sounds[a])
-       playSound(sounds[b+4])
-       playSound(sounds[c+9])
-       #play sound based on a, b, c
-       print(a, b, c)
-       e = int.from_bytes(ser.read(size=1), byteorder="big")
-       if(e != ord('e')):
-             print("Something is wrong")
-
+    #play sound based on a, b, c
+    e = int.from_bytes(ser.read(size=1), byteorder="big")
+    if(e != ord('e') or e != ord('b')):
+           print("Something is wrong")
 
     """
     sleep(0.1)
