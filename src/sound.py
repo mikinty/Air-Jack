@@ -33,7 +33,6 @@ pygame.mixer.set_num_channels(NUM_CHANNELS)  # default is 8
 currChannel = 0
 isGuitar = True
 
-
 def playSound(sound):
   '''
   A queueing system to play multiple sounds
@@ -47,7 +46,19 @@ sounds = []
 for s in GUITAR_NOTES:
   sounds.append(pygame.mixer.Sound(GUITAR_SOUNDS_DIR + s))
 
+# Load drum sounds
+drumSounds = []
+for d in DRUM_SOUNDS:
+  drumSounds.append(pygame.mixer.Sound(DRUM_SOUNDS_DIR+ d))
+
 while True: # Run forever
+    sleep(1)
+    pygame.music.music.load(DRUM_SOUNDS_DIR + DRUM_SOUNDS[0])
+    pygame.mixer.music.play(loops, start)
+    sleep (10)
+    break;
+
+
     if (isGuitar):
        s = int.from_bytes(ser.read(size=1), byteorder="big")
        if(s != ord('s')):
